@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CameraDemo2"
+             xmlns:converters="clr-namespace:CameraDemo2.Converters;assembly=CameraDemo2"
+             xmlns:models="clr-namespace:CameraDemo2.Models;assembly=CameraDemo2"
+             x:Class="CameraDemo2.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertedBoolConverter x:Key="ReverseConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout>
+        <ListView ItemsSource="{Binding Entries}" HorizontalOptions="CenterAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell ImageSource="{Binding SelectedSource}" Text="{Binding Text}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Command="{Binding NavigateCommand}"
+                VerticalOptions="CenterAndExpand"
+                Text="Take a picture"
+               />
+        <Label
+            Text="Your phone does not support, or you didnt allow us to take a picture"
+            IsVisible="{Binding IsPhotoPossible, Converter={StaticResource ReverseConverter}}"
+            TextColor="Red"
+            VerticalOptions="CenterAndExpand"
+            HorizontalOptions="Center"
+            VerticalTextAlignment="Center"/>
+        
+    </StackLayout>
+
+</ContentPage>
